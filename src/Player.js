@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import './Player.css';
 import data from './data/data.js';
+import ResponsiveEmbed from 'react-responsive-embed';
 
 class Player extends Component {
 	render() {
@@ -7,16 +9,14 @@ class Player extends Component {
 			<ul>
 				{data.map( (video) => {
 					return (
-						<div>
+						<div className="flex-container">
+							<ResponsiveEmbed src={"https://www.youtube.com/embed/" + video.link} ratio='16:9'/>
 							<Name
 								name={video.name}
 							/>
 							<Date
 								date={video.date}
 							/>
-							<div className="Player">
-								<iframe title="video" width="560" height="315" src={"https://www.youtube.com/embed/" + video.link} frameBorder="0" allow="encrypted-media" allowFullScreen></iframe>
-							</div>
 						</div>
 						)
 				})}
