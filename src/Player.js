@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Player.css';
-import data from './data/data.js';
+// import data from './data/data.js';
 import ResponsiveEmbed from 'react-responsive-embed';
 
 
@@ -21,7 +21,8 @@ class Player extends Component {
 		fetch('http://top-100-billboard.herokuapp.com/data/')
 		.then(response => response.json())
 		.then(result => {
-			console.log(typeof result)
+			// console.log(typeof result)
+			console.log(result)
 			this.setState({
 				isLoaded: true,
 				items: result
@@ -37,20 +38,58 @@ class Player extends Component {
 
 	render() {
 		const {error, isLoaded, items} = this.state;
-		console.log(items);
 		if(error){
-			return  (<div> Erorr : {error} </div>);
+			return  (
+				<div className="flex-container">
+					<div> Erorr : {error} </div>
+				</div>
+				);
 		} else if (!isLoaded){
-			return  (<div>Loading...</div>)
+			return  (
+				<div className="flex-container">
+					<div>Loading...</div>
+				</div>
+				)
+		
 		} else {
 			return (
-				<ul>
-					{items[0]}
-				</ul>
+				<div className="flex-container">
+					<ul>
+						{items.map( (song) => {
+							return (
+									<li key={song[0] + ' / ' + song[1]}>
+										<Rank
+											rank={song[0]}
+										/>
+										<Name
+											name={song[2]}
+										/>
+										<Thumbnail
+											img={song[4]}
+											alt={song[2]}
+											video={song[3]}
+										/>
+				
+									</li>
+								)
+						})}
+					</ul>
+				</div>
 			)
 		}
 	}
 }
+
+class Rank extends Component {
+	render() {
+		return (
+			<div>
+				<h1>{this.props.rank}</h1>
+			</div>
+		)
+	}
+}
+
 
 class Name extends Component {
 	render() {
@@ -62,29 +101,27 @@ class Name extends Component {
 	}
 }
 
-class Date extends Component {
+
+class Thumbnail extends Component {
 	render() {
 		return (
 			<div>
-				<p>{this.props.date} </p>
+				<img src={this.props.img} alt={this.props.alt}/>
 			</div>
 		)
 	}
 }
 
+class Video extends Component {
+	render() {
+		return (
+			<div>
+				<ResponsiveEmbed src={"https://www.youtube.com/embed/" +this.props.id+ "?&rel=0&modestbranding=1"} ratio='16:9'/> 
+			</div>
+		);
+	};
+}
 
-					// {items.map( (song) => {
-					// 	return (
-					// 		<div className="flex-container">
-					// 			<ResponsiveEmbed src={"https://www.youtube.com/embed/" + song.id} ratio='16:9'/>
-					// 			<Name
-					// 				name={song.title}
-					// 			/>
-					// 			<Date
-					// 				date={song.rank}
-					// 			/>
-					// 		</div>
-					// 		)
-					// })}
-
+/* 
+*/
 export default Player;
