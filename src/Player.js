@@ -103,12 +103,33 @@ class Name extends Component {
 
 
 class Thumbnail extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			showVideo:false
+		};
+	}
+
+	clickEvent = () => {
+		console.log("lol");
+		this.setState({
+			showVideo:true
+		})
+	}
+
 	render() {
-		return (
-			<div>
-				<img src={this.props.img} alt={this.props.alt}/>
-			</div>
-		)
+		if(!this.state.showVideo) {
+			return (
+				<div>
+					<img src={this.props.img} alt={this.props.alt} onClick={this.clickEvent}/>
+				</div>
+			)
+		} else {
+				return (
+				<Video id={this.props.video} />
+			)
+		}
 	}
 }
 
