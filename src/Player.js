@@ -137,7 +137,7 @@ class Video extends Component {
 	render() {
 		return (
 			<div>
-				<ResponsiveEmbed src={"https://www.youtube.com/embed/" +this.props.id+ "?&autoplay=1&rel=0&modestbranding=1"} ratio='16:9'/> 
+				<ResponsiveEmbed src={"https://www.youtube.com/embed/" +this.props.id+ "?autoplay=1&rel=0&modestbranding=1"} ratio='16:9'/> 
 			</div>
 		);
 	};
