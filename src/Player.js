@@ -18,7 +18,7 @@ class Player extends Component {
 	}
 
 	componentDidMount(){
-		fetch('http://top-100-billboard.herokuapp.com/data/')
+		fetch('https://top-100-billboard.herokuapp.com/data/')
 		.then(response => response.json())
 		.then(result => {
 			// console.log(typeof result)
