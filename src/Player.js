@@ -3,9 +3,6 @@ import './Player.css';
 // import data from './data/data.js';
 import ResponsiveEmbed from 'react-responsive-embed';
 
-
-
-
 class Player extends Component {
 	
 	constructor(props) {
@@ -21,8 +18,6 @@ class Player extends Component {
 		fetch('https://top-100-billboard.herokuapp.com/data/')
 		.then(response => response.json())
 		.then(result => {
-			// console.log(typeof result)
-			console.log(result)
 			this.setState({
 				isLoaded: true,
 				items: result
@@ -69,7 +64,6 @@ class Player extends Component {
 											alt={song[2]}
 											video={song[3]}
 										/>
-				
 									</li>
 								)
 						})}
@@ -112,7 +106,6 @@ class Thumbnail extends Component {
 	}
 
 	clickEvent = () => {
-		console.log("lol");
 		this.setState({
 			showVideo:true
 		})
@@ -143,6 +136,4 @@ class Video extends Component {
 	};
 }
 
-/* 
-*/
 export default Player;
