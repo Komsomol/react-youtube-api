@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './Player.css';
-// import data from './data/data.js';
 import ResponsiveEmbed from 'react-responsive-embed';
 
 class Player extends Component {
-	
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -45,26 +43,18 @@ class Player extends Component {
 					<div>Loading...</div>
 				</div>
 				)
-		
 		} else {
 			return (
 				<div className="flex-container">
 					<ul>
 						{items.map( (song) => {
 							return (
-									<li key={song[0] + ' / ' + song[1]}>
-										<Rank
-											rank={song[0]}
-										/>
-										<Name
-											name={song[2]}
-										/>
-										<Thumbnail
-											img={song[4]}
-											alt={song[2]}
-											video={song[3]}
-										/>
-									</li>
+									<VideoDataHandler key={song[0]}
+										rank={song[0]}
+										song={song[1]}
+										id={song[3]}
+										thumbnail={song[4]}
+									/>
 								)
 						})}
 					</ul>
@@ -72,55 +62,57 @@ class Player extends Component {
 			)
 		}
 	}
+
 }
 
-class Rank extends Component {
-	render() {
-		return (
-			<div>
-				<h1>{this.props.rank}</h1>
-			</div>
-		)
-	}
-}
-
-
-class Name extends Component {
-	render() {
-		return (
-			<div>
-				<h3> {this.props.name} </h3>
-			</div>
-		)
-	}
-}
-
-
-class Thumbnail extends Component {
+class VideoDataHandler extends Component {
 
 	constructor(props) {
+		console.log("passed to videoHolder ",props);
+		
 		super(props);
+
 		this.state = {
-			showVideo:false
+			rank: this.props.rank,
+			song:this.props.song,
+			thumbnail:this.props.thumbnail,
+			videoId:this.props.id,
+			showVideo:false,
 		};
+		this.clickEvent = this.clickEvent.bind(this);
 	}
 
 	clickEvent = () => {
+		console.log("lol");
 		this.setState({
 			showVideo:true
 		})
 	}
 
-	render() {
-		if(!this.state.showVideo) {
-			return (
-				<div>
-					<img src={this.props.img} alt={this.props.alt} onClick={this.clickEvent}/>
+	render(){
+		return (
+			<div className="flex-container">
+				<div className="holder" onClick={this.clickEvent}>
+					<VideoHolder 
+						videoId={this.state.videoId}
+						thumbnail={this.state.thumbnail}
+						showVideo={this.state.showVideo}
+					/>
 				</div>
+			</div>
+		)
+	}
+}
+
+class VideoHolder extends Component {
+	render(){
+		if(this.props.showVideo){
+			return (
+				<Video video={this.props.videoId} />
 			)
 		} else {
-				return (
-				<Video id={this.props.video} />
+			return (
+				<Image img={this.props.thumbnail} />
 			)
 		}
 	}
@@ -130,10 +122,21 @@ class Video extends Component {
 	render() {
 		return (
 			<div>
-				<ResponsiveEmbed src={"https://www.youtube.com/embed/" +this.props.id+ "?autoplay=1&rel=0&modestbranding=1"} ratio='16:9'/> 
+				<ResponsiveEmbed src={"https://www.youtube.com/embed/" +this.props.video+ "?&rel=0&autoplay=1&modestbranding=1"} ratio='16:9'/> 
 			</div>
 		);
 	};
 }
+
+class Image extends Component {
+	render() {
+		return (
+			<div>
+				<img src={this.props.img} alt={this.props.alt} onClick={this.clickEvent}/>
+			</div>
+		)
+	}
+}
+
 
 export default Player;
