@@ -74,10 +74,10 @@ class VideoDataHandler extends Component {
 
 		this.state = {
 			rank: this.props.rank,
-			song:this.props.song,
-			thumbnail:this.props.thumbnail,
-			videoId:this.props.id,
-			showVideo:false,
+			song: this.props.song,
+			thumbnail: this.props.thumbnail,
+			videoId: this.props.id,
+			showVideo: false,
 		};
 		this.clickEvent = this.clickEvent.bind(this);
 	}
@@ -91,14 +91,13 @@ class VideoDataHandler extends Component {
 
 	render(){
 		return (
-			<div className="flex-container">
-				<div className="holder" onClick={this.clickEvent}>
-					<VideoHolder 
-						videoId={this.state.videoId}
-						thumbnail={this.state.thumbnail}
-						showVideo={this.state.showVideo}
-					/>
-				</div>
+			<div className="holder" onClick={this.clickEvent}>
+				<h3>{this.state.rank + '. ' + this.state.song} </h3>
+				<VideoHolder
+					videoId={this.state.videoId}
+					thumbnail={this.state.thumbnail}
+					showVideo={this.state.showVideo}
+				/>
 			</div>
 		)
 	}
