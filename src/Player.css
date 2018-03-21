@@ -1,15 +1,12 @@
 .flex-container{
 	display: flex;
 	flex-direction: column;
-	padding-left: 10px;
-	padding-right: 10px;
 	justify-content: center;
 	align-items: center;
 }
 
 .holder{
 	text-align: center;
-	max-width:480px;
 }
 
 ul {
