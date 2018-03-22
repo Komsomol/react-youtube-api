@@ -68,7 +68,6 @@ class Player extends Component {
 class VideoDataHandler extends Component {
 
 	constructor(props) {
-		console.log("passed to videoHolder ",props);
 		
 		super(props);
 
@@ -83,7 +82,6 @@ class VideoDataHandler extends Component {
 	}
 
 	clickEvent = () => {
-		console.log("lol");
 		this.setState({
 			showVideo:true
 		})
