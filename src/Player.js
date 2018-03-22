@@ -13,7 +13,7 @@ class Player extends Component {
 	}
 
 	componentDidMount(){
-		fetch('https://top-100-billboard.herokuapp.com/data/')
+		fetch('https://top-100-billboard.herokuapp.com/genre/')
 		.then(response => response.json())
 		.then(result => {
 			this.setState({
@@ -68,7 +68,7 @@ class Player extends Component {
 class VideoDataHandler extends Component {
 
 	constructor(props) {
-		
+
 		super(props);
 
 		this.state = {
@@ -103,15 +103,9 @@ class VideoDataHandler extends Component {
 
 class VideoHolder extends Component {
 	render(){
-		if(this.props.showVideo){
-			return (
-				<Video video={this.props.videoId} />
-			)
-		} else {
-			return (
-				<Image img={this.props.thumbnail} />
-			)
-		}
+		return(
+			this.props.showVideo ? <Video video={this.props.videoId} /> : <Image img={this.props.thumbnail} />
+		)
 	}
 }
 
