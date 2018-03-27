@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Player.css';
-import ResponsiveEmbed from 'react-responsive-embed';
+import { VideoDataHandler } from './VideoHandler.js'
 
 class Player extends Component {
 	constructor(props) {
@@ -8,12 +8,12 @@ class Player extends Component {
 		this.state = {
 			error:null,
 			isLoaded:false,
-			items:[]
+			items:[],
 		};
 	}
 
 	componentDidMount(){
-		fetch('https://top-100-billboard.herokuapp.com/genre/')
+		fetch(this.props.api)
 		.then(response => response.json())
 		.then(result => {
 			this.setState({
@@ -63,70 +63,6 @@ class Player extends Component {
 		}
 	}
 
-}
-
-class VideoDataHandler extends Component {
-
-	constructor(props) {
-
-		super(props);
-
-		this.state = {
-			rank: this.props.rank,
-			song: this.props.song,
-			thumbnail: this.props.thumbnail,
-			videoId: this.props.id,
-			showVideo: false,
-		};
-		this.clickEvent = this.clickEvent.bind(this);
-	}
-
-	clickEvent = () => {
-		this.setState({
-			showVideo:true
-		})
-	}
-
-	render(){
-		return (
-			<div className="holder" onClick={this.clickEvent}>
-				<h3>{this.state.rank + '. ' + this.state.song} </h3>
-				<VideoHolder
-					videoId={this.state.videoId}
-					thumbnail={this.state.thumbnail}
-					showVideo={this.state.showVideo}
-				/>
-			</div>
-		)
-	}
-}
-
-class VideoHolder extends Component {
-	render(){
-		return(
-			this.props.showVideo ? <Video video={this.props.videoId} /> : <Image img={this.props.thumbnail} />
-		)
-	}
-}
-
-class Video extends Component {
-	render() {
-		return (
-			<div>
-				<ResponsiveEmbed src={"https://www.youtube.com/embed/" +this.props.video+ "?&rel=0&autoplay=1&modestbranding=1"} ratio='16:9'/> 
-			</div>
-		);
-	};
-}
-
-class Image extends Component {
-	render() {
-		return (
-			<div>
-				<img src={this.props.img} alt={this.props.alt} onClick={this.clickEvent}/>
-			</div>
-		)
-	}
 }
 
 

@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import Player from './Player';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-ReactDOM.render(<Player />, document.getElementById('player'));
-
-
-
+ReactDOM.render(<Player api='https://top-100-billboard.herokuapp.com/genre/'/>, document.getElementById('player'));
 
 registerServiceWorker();
